@@ -66,7 +66,7 @@ public class loginController {
 	}
     public void login() throws IOException {
     	String username = usernameField.getText();
-    	if(username.compareTo("admin")==0) {
+    	if(username.equals("admin")) {
 	    	FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/Photos55/view/admin.fxml"));
 			Pane root = (Pane)loader.load();
@@ -77,7 +77,28 @@ public class loginController {
 	    	stage.setScene(scene);
 	    	stage.show();
     	}
-    	if(loadUsers().contains(username)) {
+    	else if(loadUsers().contains(username)) {
+    		Photos55App.user = Photos55App.userList.get(loadUsers().indexOf(username));
+    		
+    		if(Photos55App.user == null)
+    		{
+    			System.out.println("Return null");
+    		}
+    		
+    		System.out.println(Photos55App.user.getName());
+    		
+    		FXMLLoader loader = new FXMLLoader();
+    		loader.setLocation(getClass().getResource("/Photos55/view/nonAdmin.fxml"));
+    		//loader.setLocation(getClass().getResource("/Photos55/view/openalbum.fxml"));
+    		Pane root = (Pane)loader.load();
+    		Stage stage = (Stage) loginButton.getScene().getWindow();
+	    	Scene scene = new Scene(root);
+	    	userController photosController = loader.getController();
+	    	//adminController photosController = loader.getController();
+			photosController.start(stage);
+	    	stage.setScene(scene);
+	    	stage.show();
+    		
     		System.out.println("Successful Login");
     	}
     }
