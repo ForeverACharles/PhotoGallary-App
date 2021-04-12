@@ -24,7 +24,12 @@ public class Photo implements Serializable {
 		return this.name;
 	}
 	
-	public String getDate()
+	public Calendar getDate()
+	{
+		return date;
+	}
+	
+	public String printDate()
 	{
 		return date.toString();
 	}
