@@ -19,10 +19,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Photos55App extends Application implements Serializable {
+public class Photos55App extends Application {
 
 	public static Photos55App app;
-	public static ArrayList<User> userList;
+	public static ArrayList<User> userList = new ArrayList<User>();
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -47,16 +47,15 @@ public class Photos55App extends Application implements Serializable {
     		data.mkdirs();
     	}
 		
-		Photos55App app = new Photos55App();
 		try
 		{
-			app = readPhotosApp();
+			userList = readPhotosApp();
 		}
 		catch(Exception e)
 		{
 			try
 			{
-				writePhotosApp(app);
+				writePhotosApp();
 			}
 			catch (Exception f)
 			{
@@ -70,18 +69,17 @@ public class Photos55App extends Application implements Serializable {
 		System.out.println("app quit, write to App");
 	}
 	
-	public static Photos55App readPhotosApp() throws IOException, ClassNotFoundException
+	public static ArrayList<User> readPhotosApp() throws IOException, ClassNotFoundException
 	{
 		ObjectInputStream OIS = new ObjectInputStream(
-			new FileInputStream("data" + File.separator + "appSession"));
-		return (Photos55App)OIS.readObject();
+			new FileInputStream("data" + File.separator + "userList"));
+		return (ArrayList) OIS.readObject();
 	}
-	
-	public static void writePhotosApp(Photos55App app) throws IOException, ClassNotFoundException
+	public static void writePhotosApp() throws IOException, ClassNotFoundException
 	{
 		ObjectOutputStream OOS = new ObjectOutputStream(
-			new FileOutputStream("data" + File.separator + "appSession"));
-		OOS.writeObject(app);
+			new FileOutputStream("data" + File.separator + "userList"));
+		OOS.writeObject(userList);
 	}
 	
 	

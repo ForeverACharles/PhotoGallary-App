@@ -6,8 +6,10 @@ import java.util.*;
 public class User implements Serializable {
 	
 	private ArrayList<Album> albums;
-	private String dir;
 	private String name;
+	
+	public static final String storeDir = "data";
+	public static final String storeFile = "users.dat";
 	
 	public User(String name)
 	{
@@ -22,14 +24,14 @@ public class User implements Serializable {
 	public void writeUser(User user) throws IOException, ClassNotFoundException
 	{
 		ObjectOutputStream OOS = new ObjectOutputStream(
-			new FileOutputStream(dir + name));
+			new FileOutputStream(storeDir + File.separator + storeFile));
 		OOS.writeObject(user);
 	}
 	
 	public User readUser() throws IOException, ClassNotFoundException
 	{
 		ObjectInputStream OIS = new ObjectInputStream(
-			new FileInputStream(dir + File.separator + name));
+			new FileInputStream(storeDir + File.separator + storeFile));
 		return (User)OIS.readObject();
 	}
 }

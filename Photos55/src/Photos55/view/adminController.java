@@ -91,6 +91,7 @@ public class adminController {
 		}
 		Photos55App.userList.add(new User(user));
 	    userList = loadUsers();
+	    users.setItems(userList);
 	}
 	
     public void deleteUser() throws IOException {
@@ -113,5 +114,8 @@ public class adminController {
     	Scene scene = new Scene(root);
     	stage.setScene(scene);
     	stage.show();
+    }
+    public void quit() throws IOException, ClassNotFoundException {
+    	Photos55App.writePhotosApp();
     }
 }
