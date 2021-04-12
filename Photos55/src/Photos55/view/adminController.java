@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,7 +49,9 @@ public class adminController {
 	public ObservableList<String> loadUsers()
 	{
 		File dir = new File("users");
-		String[] users = dir.list(new FilenameFilter()
+		ArrayList<String> users = new ArrayList<String>();
+		users.addAll(Arrays.asList(dir.list(
+			new FilenameFilter()
 			{
 				@Override
 				public boolean accept(File curr, String user)
@@ -56,17 +59,31 @@ public class adminController {
 					return new File(curr, user).isDirectory();
 				}
 			}	
-		);
+		)));
 		
-		if(users.length > 0)
+		if(!users.contains("stock"))
 		{
-			ObservableList<String> result = FXCollections.observableArrayList();
-			for(String user : users)
+			users.add("stock");
+			File stock = new File("users/stock");
+			stock.mkdirs();	
+			try
 			{
-				result.add(user);
+				File gitKeep = new File("users/stock/.gitkeep");
+				gitKeep.createNewFile();
 			}
-			return result;
+			catch (IOException e)
+			{
+				System.out.println("Error creating stock user");
+				e.printStackTrace();
+			}
 		}
+		
+		ObservableList<String> result = FXCollections.observableArrayList();
+		for(String user : users)
+		{
+			result.add(user);
+		}
+		return result;
 			
 		/*
 		//NOTE: users.txt must be saved at the root project directory of Photos55!!!
@@ -98,7 +115,6 @@ public class adminController {
 			}
 		}
 		*/
-		return null;
 	}
 	
 	public void updateFile() {
@@ -140,6 +156,13 @@ public class adminController {
 		int index = users.getSelectionModel().getSelectedIndex();
 		if(userList.size() == 0 || index == -1) {
 			Alert alert = new Alert(AlertType.ERROR, "List is Empty or Nothing is Selected", ButtonType.OK);
+			alert.showAndWait();
+			return;
+		}
+		
+		if(userList.get(index).equals("stock"))
+		{
+			Alert alert = new Alert(AlertType.ERROR, "Cannot remove stock user", ButtonType.OK);
 			alert.showAndWait();
 			return;
 		}
