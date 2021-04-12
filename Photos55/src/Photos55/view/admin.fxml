@@ -17,11 +17,11 @@
             <Font name="Comic Sans MS" size="24.0" />
          </font>
       </Text>
-      <Button layoutX="418.0" layoutY="317.0" mnemonicParsing="false" text="Create" onAction="#newuser"/>
+      <Button layoutX="418.0" layoutY="317.0" mnemonicParsing="false" text="Create" onAction="#addUser"/>
       <TextField fx:id="newuser" layoutX="253.0" layoutY="317.0" />
       <ListView fx:id="users" layoutX="91.0" layoutY="91.0" prefHeight="200.0" prefWidth="200.0" />
       <Text layoutX="91.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users" />
-      <Button layoutX="302.0" layoutY="91.0" mnemonicParsing="false" text="Delete" onAction="#deleteuser"/>
+      <Button layoutX="302.0" layoutY="91.0" mnemonicParsing="false" text="Delete" onAction="#deleteUser"/>
       <Text layoutX="197.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New User"/>
    </children>
 </Pane>
