@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import Photos55.app.*;
 
 public class adminController {
 	
@@ -30,58 +31,16 @@ public class adminController {
 	private ObservableList<String> userList;
 	
 	public void start(Stage mainstage) {
-		try {
-	        File songFile = new File("users.txt");
-	        if (songFile.createNewFile()) {
-	          userList = FXCollections.observableArrayList();
-	        } 
-	        else {
-	        	userList = loadUsers();
-	        }
-	    } 
-		catch (IOException e) {
-	        System.out.println("Error Loading File.");
-	        e.printStackTrace();
-	    }
+	    userList = loadUsers();
 		users.setItems(userList);
 	}
 	
 	public ObservableList<String> loadUsers()
 	{
-		File dir = new File("users");
-		ArrayList<String> users = new ArrayList<String>();
-		users.addAll(Arrays.asList(dir.list(
-			new FilenameFilter()
-			{
-				@Override
-				public boolean accept(File curr, String user)
-				{
-					return new File(curr, user).isDirectory();
-				}
-			}	
-		)));
-		
-		if(!users.contains("stock"))
-		{
-			users.add("stock");
-			File stock = new File("users/stock");
-			stock.mkdirs();	
-			try
-			{
-				File gitKeep = new File("users/stock/.gitkeep");
-				gitKeep.createNewFile();
-			}
-			catch (IOException e)
-			{
-				System.out.println("Error creating stock user");
-				e.printStackTrace();
-			}
-		}
-		
 		ObservableList<String> result = FXCollections.observableArrayList();
-		for(String user : users)
+		for(User user : Photos55App.userList)
 		{
-			result.add(user);
+			result.add(user.getName());
 		}
 		return result;
 			
@@ -117,22 +76,6 @@ public class adminController {
 		*/
 	}
 	
-	public void updateFile() {
-		
-		try {
-			FileWriter songWriter = new FileWriter("users.txt");
-			for (String user: userList) {
-				songWriter.write(user + "\n");
-			}
-			songWriter.close();
-			}
-			catch (IOException e) {
-				System.out.println("Error writing to file");
-				e.printStackTrace();
-			}		
-		
-	}
-	
 	public void addUser() throws IOException {
 		String user = newuser.getText();
 		if(user.equals("admin")) {
@@ -146,10 +89,8 @@ public class adminController {
 			alert.showAndWait();
 			return;
 		}
-		//updateFile();
-		File dir = new File("users/" + user);
-		dir.mkdirs();
-		userList.add(user);
+		Photos55App.userList.add(new User(user));
+	    userList = loadUsers();
 	}
 	
     public void deleteUser() throws IOException {
@@ -159,17 +100,9 @@ public class adminController {
 			alert.showAndWait();
 			return;
 		}
-		
-		if(userList.get(index).equals("stock"))
-		{
-			Alert alert = new Alert(AlertType.ERROR, "Cannot remove stock user", ButtonType.OK);
-			alert.showAndWait();
-			return;
-		}
 		//updateFile();
-		File dir = new File("users/" + userList.get(index));
-		dir.delete();
-		userList.remove(index);
+		Photos55App.userList.remove(index);
+		userList = loadUsers();
     }
     
     public void logout() throws IOException {

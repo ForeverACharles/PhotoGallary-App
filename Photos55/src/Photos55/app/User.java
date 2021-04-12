@@ -2,7 +2,6 @@ package Photos55.app;
 import java.io.*;
 import java.util.*;
 
-import Photos55.view.Album;
 
 public class User implements Serializable {
 	
@@ -10,11 +9,14 @@ public class User implements Serializable {
 	private String dir;
 	private String name;
 	
-	public User(String dir, String name)
+	public User(String name)
 	{
 		albums = new ArrayList<Album>();
-		this.dir = dir;
 		this.name = name;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 	
 	public void writeUser(User user) throws IOException, ClassNotFoundException
