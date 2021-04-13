@@ -226,8 +226,7 @@ public class userController {
 					for(Photo photo : album.getPhotos()) {
 						LocalDate photoDate = photo.getDate();
 						
-						//System.out.println(photoDate + "between: " + start + ", and: " + end);
-						if(photoDate != null && (photoDate.isEqual(end) && photoDate.isBefore(start)))
+						if(photoDate != null && (photoDate.isEqual(end) && photoDate.isBefore(end)))
 						{
 							filteredPhotos.add(photo);
 						}
