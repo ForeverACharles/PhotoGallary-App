@@ -209,7 +209,7 @@ public class userController {
 					for(Photo photo : album.getPhotos()) {
 						
 						LocalDate photoDate = photo.getDate();
-						if(photoDate != null && (photoDate.isEqual(start) && photoDate.isAfter(start)))
+						if(photoDate != null && (photoDate.isEqual(start) || photoDate.isAfter(start)))
 						{
 							filteredPhotos.add(photo);
 						}
@@ -226,7 +226,7 @@ public class userController {
 					for(Photo photo : album.getPhotos()) {
 						
 						LocalDate photoDate = photo.getDate();
-						if(photoDate != null && (photoDate.isEqual(end) && photoDate.isBefore(end)))
+						if(photoDate != null && (photoDate.isBefore(end) || photoDate.isEqual(end)))
 						{
 							filteredPhotos.add(photo);
 						}
