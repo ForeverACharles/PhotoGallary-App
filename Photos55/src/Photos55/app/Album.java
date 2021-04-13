@@ -1,47 +1,66 @@
 package Photos55.app;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Album implements Serializable {
 
 	private String name;
 	private ArrayList<Photo> photos;
+	
 	public Album(String name) {
 		this.name = name;
+		photos = new ArrayList<Photo>();
 	}
+	
 	public String getName() {
-		return this.name;
+		return name;
 	}
-	public int getLength() {
-		return this.photos.size();
+	
+	public void setName(String name)
+	{
+		this.name = name;
 	}
+	
+	public int getNumber() {
+		if(photos != null && photos.size() > 0)
+		{
+			return photos.size();
+		}
+		else 
+		{
+			return 0;
+		}
+	}
+	
 	public ArrayList<Photo> getPhotos(){
-		return this.photos;
+		return photos;
 	}
+	
 	public String getEarliest() {
-		if (this.getLength()== 0) {
+		if(getNumber() == 0) {
 			return null;
 		}
-		Calendar current = photos.get(0).getDate();
+		LocalDate current = photos.get(0).getDate();
 		for (Photo photo : photos) {
-			if (photo.getDate().before(current)) {
+			if (photo.getDate().isBefore(current)) {
 				current = photo.getDate();
 			}
 		}
 		return current.toString();
-		
 	}
+	
 	public String getLatest() {
-		if (this.getLength()== 0) {
+		if (getNumber() == 0) {
 			return null;
 		}
-		Calendar current = photos.get(0).getDate();
+		LocalDate current = photos.get(0).getDate();
 		for (Photo photo : photos) {
-			if (photo.getDate().after(current)) {
+			if (photo.getDate().isAfter(current)) {
 				current = photo.getDate();
 			}
 		}
 		return current.toString();
-		
 	}
+	
 }

@@ -1,16 +1,17 @@
 package Photos55.app;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Photo implements Serializable {
 
 	private String name;
 	private String dir;
-	private Calendar date;
+	private LocalDate date;
 	private String captions;
 	private ArrayList<Tag> tags;
 	
-	public Photo(String name, String dir, Calendar date, String captions)
+	public Photo(String name, String dir, LocalDate date, String captions)
 	{
 		this.name = name;
 		this.dir = dir;
@@ -24,7 +25,7 @@ public class Photo implements Serializable {
 		return this.name;
 	}
 	
-	public Calendar getDate()
+	public LocalDate getDate()
 	{
 		return date;
 	}
@@ -42,6 +43,11 @@ public class Photo implements Serializable {
 	public void reCaption(String newCaptions)
 	{
 		captions = newCaptions;
+	}
+	
+	public ArrayList<Tag> getTags()
+	{
+		return tags;
 	}
 	
 	public void addTag(Tag newTag)

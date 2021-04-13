@@ -21,6 +21,36 @@ public class User implements Serializable {
 		return this.name;
 	}
 	
+	public ArrayList<Album> getAlbums()
+	{
+		return albums;
+	}
+	
+	public void addAlbum(String name)
+	{
+		albums.add(new Album(name));
+	}
+	
+	public void deleteAlbum(String name)
+	{
+		for(Album album : albums)
+		{
+			if(album.getName().equals(name))
+			{
+				albums.remove(album);
+				break;
+			}
+		}
+	}
+	
+	public void printAlbums()
+	{
+		for(Album album : albums)
+		{
+			System.out.println(album.getName() + ", ");
+		}
+	}
+	
 	public void writeUser(User user) throws IOException, ClassNotFoundException
 	{
 		ObjectOutputStream OOS = new ObjectOutputStream(

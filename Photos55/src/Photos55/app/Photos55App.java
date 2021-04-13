@@ -23,6 +23,7 @@ public class Photos55App extends Application {
 
 	public static Photos55App app;
 	public static ArrayList<User> userList = new ArrayList<User>();
+	public static User user;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -69,11 +70,23 @@ public class Photos55App extends Application {
 		System.out.println("app quit, write to App");
 	}
 	
+	public static User getUser(String username)
+	{
+		for(User user : userList)
+		{
+			if(user.getName().equals(username))
+			{
+				return user;
+			}
+		}
+		return null;
+	}
+	
 	public static ArrayList<User> readPhotosApp() throws IOException, ClassNotFoundException
 	{
 		ObjectInputStream OIS = new ObjectInputStream(
 			new FileInputStream("data" + File.separator + "userList"));
-		return (ArrayList) OIS.readObject();
+		return (ArrayList<User>) OIS.readObject();
 	}
 	public static void writePhotosApp() throws IOException, ClassNotFoundException
 	{

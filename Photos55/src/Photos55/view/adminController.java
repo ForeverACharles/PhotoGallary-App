@@ -1,10 +1,5 @@
 package Photos55.view;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.*;
 
@@ -43,41 +38,18 @@ public class adminController {
 			result.add(user.getName());
 		}
 		return result;
-			
-		/*
-		//NOTE: users.txt must be saved at the root project directory of Photos55!!!
-		String path = "users.txt";	
-		File songsTXT = new File(path);
-		
-		if(songsTXT.isFile())
-		{	
-			try 
-			{
-				ObservableList<String> result = FXCollections.observableArrayList();
-				BufferedReader txtReader = new BufferedReader(new FileReader(path));
-				if(txtReader != null)
-				{
-					String currLine;
-					while((currLine = txtReader.readLine()) != null)
-					{				
-						result.add(currLine);
-					}
-				}
-				txtReader.close();
-				return result;
-				
-			} 
-			catch (IOException e) 
-			{
-				System.out.println("Error, reading from txt file");
-				return null;
-			}
-		}
-		*/
 	}
 	
 	public void addUser() throws IOException {
 		String user = newuser.getText();
+		
+		if(user.isEmpty()) 
+		{
+			Alert alert = new Alert(AlertType.ERROR, "Cannot create user with an empty name", ButtonType.OK);
+			alert.showAndWait();
+			return;
+		}
+		
 		if(user.equals("admin")) {
 			Alert alert = new Alert(AlertType.ERROR, "Cannot name a user admin", ButtonType.OK);
 			alert.showAndWait();
@@ -90,6 +62,8 @@ public class adminController {
 			return;
 		}
 		Photos55App.userList.add(new User(user));
+		newuser.clear();
+		
 	    userList = loadUsers();
 	    users.setItems(userList);
 	}
@@ -97,13 +71,14 @@ public class adminController {
     public void deleteUser() throws IOException {
 		int index = users.getSelectionModel().getSelectedIndex();
 		if(userList.size() == 0 || index == -1) {
-			Alert alert = new Alert(AlertType.ERROR, "List is Empty or Nothing is Selected", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR, "List is empty or no user selected", ButtonType.OK);
 			alert.showAndWait();
 			return;
 		}
-		//updateFile();
 		Photos55App.userList.remove(index);
+		
 		userList = loadUsers();
+		users.setItems(userList);
     }
     
     public void logout() throws IOException {
@@ -115,7 +90,9 @@ public class adminController {
     	stage.setScene(scene);
     	stage.show();
     }
+    
     public void quit() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
+    	System.exit(0);
     }
 }
