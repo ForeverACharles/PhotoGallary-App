@@ -207,8 +207,8 @@ public class userController {
 			for(Album album : theAlbums) {
 				if(album.getNumber() > 0) {
 					for(Photo photo : album.getPhotos()) {
-						LocalDate photoDate = photo.getDate();
 						
+						LocalDate photoDate = photo.getDate();
 						if(photoDate != null && (photoDate.isEqual(start) && photoDate.isAfter(start)))
 						{
 							filteredPhotos.add(photo);
@@ -224,8 +224,8 @@ public class userController {
 			for(Album album : theAlbums) {
 				if(album.getNumber() > 0) {
 					for(Photo photo : album.getPhotos()) {
-						LocalDate photoDate = photo.getDate();
 						
+						LocalDate photoDate = photo.getDate();
 						if(photoDate != null && (photoDate.isEqual(end) && photoDate.isBefore(end)))
 						{
 							filteredPhotos.add(photo);
@@ -247,9 +247,8 @@ public class userController {
 			for(Album album : theAlbums) {		//check between date ranges
 				if(album.getNumber() > 0) {
 					for(Photo photo : album.getPhotos()) {
-						LocalDate photoDate = photo.getDate();
 						
-						//System.out.println(photoDate + "between: " + start + ", and: " + end);
+						LocalDate photoDate = photo.getDate();
 						if(photoDate != null && (photoDate.compareTo(start) >= 0 && photoDate.compareTo(end) <= 0))
 						{
 							filteredPhotos.add(photo);
