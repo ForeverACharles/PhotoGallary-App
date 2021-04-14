@@ -126,12 +126,17 @@ public class albumController {
 			//photo.reCaption(""+ row);
 			try
 			{
-				stream = new FileInputStream(photo.getPath());
+				String filePath = photo.getPath();
+				if(photo.getPath().contains("Photos55" + File.separator + "data"))
+		    	{
+		    		filePath = "data" + File.separator + filePath.substring(filePath.lastIndexOf(File.separator) + 1).trim();
+		    	}
+				stream = new FileInputStream(filePath);
 			}
 			catch (FileNotFoundException e)
 			{
 				//Input Stream could not be created from missing file, load a photo with error
-				stream = new FileInputStream("data/PhotoNotFound.png");
+				stream = new FileInputStream("data" + File.separator + "PhotoNotFound.png");
 			}
 			
 			Image image = new Image(stream);
@@ -197,6 +202,7 @@ public class albumController {
 	    {
 	    	if (file != null) {
 		    	Photo newPhoto = new Photo(file.toString(), Instant.ofEpochMilli(file.lastModified()).atZone(ZoneId.systemDefault()).toLocalDate());
+		    	
 		        System.out.println(newPhoto.getPath());
 		        System.out.println(newPhoto.printDate());
 		        
@@ -205,14 +211,14 @@ public class albumController {
 		        for (Album album: albums) {
 		        	ArrayList<Photo> photos = album.getPhotos();
 		        	for(Photo photo : photos)
-		        		{
-		        			if(photo.getPath().equals(newPhoto.getPath()))
-		        				{
-		        					duplicate = true;
-		        					failedImports++;
-		        					break;
-		        				}
-		        		}
+	        		{
+	        			if(photo.getPath().equals(newPhoto.getPath()))
+        				{
+        					duplicate = true;
+        					failedImports++;
+        					break;
+        				}
+	        		}
 		        }
 		        if(duplicate == false)
 		        {

@@ -28,6 +28,12 @@ public class Photo implements Serializable {
 	public String getPath() {
 		return path;
 	}
+	
+	public void setPath(String path)
+	{
+		this.path = path;
+	}	
+	
 	public String printDate()
 	{
 		return date.toString();
