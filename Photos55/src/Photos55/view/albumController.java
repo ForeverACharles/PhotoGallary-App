@@ -125,12 +125,12 @@ public class albumController {
 				//Input Stream could not be created from missing file, load a photo with error
 				stream = new FileInputStream("data/PhotoNotFound.png");
 			}
+			
 			Image image = new Image(stream);
 			ImageView imageView = new ImageView();
 			//Setting image to the image view
 			
 			imageView.setImage(image);
-			
 			imageView.setOnMouseClicked(e -> 
 			{
 				try 
@@ -163,7 +163,6 @@ public class albumController {
 			}
 			
 		}
-		
 		mainstage.show();
 	}
 	
@@ -183,6 +182,7 @@ public class albumController {
 	
 	public void addPhoto() throws IOException, ClassNotFoundException{
 		FileChooser chooser = new FileChooser();
+		int failedImports = 0;
 		
 		chooser.getExtensionFilters().add(new ExtensionFilter("Pictures", "*.jpg","*.png","*.bmp","*.gif"));
 	    List<File> files = chooser.showOpenMultipleDialog(logoutButton.getScene().getWindow());
@@ -193,19 +193,31 @@ public class albumController {
 		        System.out.println(newPhoto.getPath());
 		        System.out.println(newPhoto.printDate());
 		        
+		        Boolean duplicate = false;
 		        ArrayList<Photo> photos = userController.viewAlbum.getPhotos();
 		        for(Photo photo : photos)
 		        {
 		        	if(photo.getPath().equals(newPhoto.getPath()))
 		        	{
-			        	Alert alert = new Alert(AlertType.ERROR, "This photo already exists", ButtonType.OK);
-						alert.showAndWait();
-						return;
+		        		duplicate = true;
+		        		failedImports++;
+		        		break;
 		        	}
 		        }
-		        userController.viewAlbum.getPhotos().add(newPhoto);
+		        
+		        if(duplicate == false)
+		        {
+		        	userController.viewAlbum.getPhotos().add(newPhoto);
+		        }
 	    	}
 	    }
+	    
+	    if(failedImports >= 1)
+	    {
+	    	Alert alert = new Alert(AlertType.WARNING, failedImports + " photo(s) already imported into the album. Skipping.", ButtonType.OK);
+			alert.showAndWait();
+	    }
+	    
 	    makeGrid();
 	    
 	    Photos55App.writePhotosApp();
