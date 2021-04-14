@@ -212,40 +212,49 @@ public class albumController {
 	public void addPhoto() throws IOException, ClassNotFoundException{
 		FileChooser chooser = new FileChooser();
 		int failedImports = 0;
-		
 		chooser.getExtensionFilters().add(new ExtensionFilter("Pictures", "*.jpg","*.png","*.bmp","*.gif"));
 	    List<File> files = chooser.showOpenMultipleDialog(logoutButton.getScene().getWindow());
-	    for(File file : files)
+	    if(files != null)
 	    {
-	    	if (file != null) {
-		    	Photo newPhoto = new Photo(file.toString(), Instant.ofEpochMilli(file.lastModified()).atZone(ZoneId.systemDefault()).toLocalDate());
+	    	for(File file : files)
+		    {
+		    	if (file != null) {
 		    	
-		        System.out.println(newPhoto.getPath());
-		        System.out.println(newPhoto.printDate());
-		        
-		        Boolean duplicate = false;
-		        //ArrayList<Album> albums = Photos55App.user.getAlbums();
-		        
-        		ArrayList<Photo> photos = userController.viewAlbum.getPhotos();
-        		for(Photo photo : photos)
-        		{
-        			if(file.getCanonicalFile().equals(new File(photo.getPath()).getCanonicalFile()))
-    				{
-    					duplicate = true;
-    					failedImports++;
-    					break;
-    				}
-    				
-        		}
-		        	
-		        if(duplicate == false)
-		        {
-		        	userController.viewAlbum.getPhotos().add(newPhoto);
-		        }
-	    	}
+		    		//check all photos of all albums if the file matches
+		    		Boolean duplicate = false;
+		    		for(Album album : Photos55App.user.getAlbums())
+		    		{
+		    			for(Photo photo : album.getPhotos())
+		    			{
+		    				if(file.getCanonicalFile().equals(new File(photo.getPath()).getCanonicalFile()))
+		    				{
+		    					System.out.println("we found duplicate in: "+ album.getName());
+		    					if(album.equals(userController.viewAlbum))
+		    					{
+		    						failedImports++;
+		    					}
+		    					else if(!userController.viewAlbum.getPhotos().contains(photo))
+		    					{
+			    					userController.viewAlbum.getPhotos().add(photo);
+			    					failedImports = 0;
+		    					}
+		    					duplicate = true;
+		    				}
+		    			}
+		    		}
+		    			
+		    		if(duplicate == false)
+		    		{
+		    			Photo newPhoto = new Photo(file.toString(), Instant.ofEpochMilli(file.lastModified()).atZone(ZoneId.systemDefault()).toLocalDate());
+					    userController.viewAlbum.getPhotos().add(newPhoto);
+					    System.out.println(newPhoto.getPath());
+						System.out.println(newPhoto.printDate());
+		    		}
+		    	}
+		    }
 	    }
-	    
-	    if(failedImports >= 1)
+	   
+	    if(failedImports > 0)
 	    {
 	    	Alert alert = new Alert(AlertType.WARNING, failedImports + " photo(s) already imported into the album", ButtonType.OK);
 			alert.showAndWait();
