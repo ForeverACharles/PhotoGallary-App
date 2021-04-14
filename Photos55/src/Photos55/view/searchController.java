@@ -1,5 +1,6 @@
 package Photos55.view;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -52,6 +53,12 @@ public class searchController {
 	
 	@FXML TextField tagToAdd;
 	@FXML TextField valueToAdd;
+	
+	public void start(Stage stage) throws FileNotFoundException {
+		mainstage = stage;
+		makeGrid();
+	}
+	
 	public void clicked(Photo photo, Image image) throws FileNotFoundException {
 		
 		clickedPhoto = photo;
@@ -111,7 +118,7 @@ public class searchController {
 			catch (FileNotFoundException e)
 			{
 				//Input Stream could not be created from missing file, load a photo with error
-				stream = new FileInputStream("data/PhotoNotFound.png");
+				stream = new FileInputStream("data" + File.separator + "PhotoNotFound.png");
 			}
 			
 			Image image = new Image(stream);
@@ -166,10 +173,6 @@ public class searchController {
 		makeGrid();
 	}
 	
-	public void start(Stage stage) throws FileNotFoundException {
-		mainstage = stage;
-		makeGrid();
-	}
 	public void createFromResults() {
 		String requestedAlbum = albumField.getText();
 		ArrayList<Album> theAlbums = Photos55App.user.getAlbums();
@@ -197,6 +200,7 @@ public class searchController {
 		albumField.clear();
 		
 	}
+	
 	public ObservableList<tagDisplay> getTagTable()
 	{
 		ObservableList<tagDisplay> result = FXCollections.observableArrayList();
@@ -256,6 +260,7 @@ public class searchController {
 		tagTableContents = getTagTable();
 		tagTable.setItems(tagTableContents);
 	}
+	
     public void logout() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
     	FXMLLoader loader = new FXMLLoader();

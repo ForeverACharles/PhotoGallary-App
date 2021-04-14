@@ -197,6 +197,11 @@ public class userController {
 	public void searchByDate() throws IOException
 	{
 		filteredPhotos.clear();
+		tag1.clear();
+		value1.clear();
+		tag2.clear();
+		value2.clear();
+		
 		LocalDate start = startDate.getValue();
 		LocalDate end = endDate.getValue();
 		
@@ -264,12 +269,12 @@ public class userController {
 			}
 		}
 		
-		/*
-		for(Photo photo : filteredPhotos)
+		if(filteredPhotos.isEmpty())
 		{
-			System.out.println(photo.getName() + " | " + photo.getDate().toString());
+			Alert alert = new Alert(AlertType.INFORMATION, "No photos found with these criteria", ButtonType.OK);
+			alert.showAndWait();
+			return;
 		}
-		*/
 	
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/Photos55/view/search.fxml"));
@@ -286,6 +291,9 @@ public class userController {
 	public void searchByTag() throws IOException
 	{
 		filteredPhotos.clear();
+		startDate.getEditor().clear();
+		endDate.getEditor().clear();
+		
 		String Tag1 = tag1.getText();
 		String Value1 = value1.getText();
 		String Tag2 = tag2.getText();
@@ -343,6 +351,13 @@ public class userController {
 				return;
 			}
 			tagFilter(pair1, pair2, 2);
+		}
+		
+		if(filteredPhotos.isEmpty())
+		{
+			Alert alert = new Alert(AlertType.INFORMATION, "No photos found with these criteria", ButtonType.OK);
+			alert.showAndWait();
+			return;
 		}
 		
 		FXMLLoader loader = new FXMLLoader();

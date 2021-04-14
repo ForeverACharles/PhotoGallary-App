@@ -4,6 +4,7 @@ import Photos55.app.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -98,6 +99,16 @@ public class albumController {
 		}
 	}
 	
+	public ObservableList<tagDisplay> getTagTable()
+	{
+		ObservableList<tagDisplay> result = FXCollections.observableArrayList();
+		for(Tag tag : clickedPhoto.getTags())
+		{
+			result.add(new tagDisplay(tag.getTag(), tag.getValue()));
+		}
+		return result;
+	}
+	
 	public void makeGrid() throws FileNotFoundException {
 		
 		ArrayList<Photo> photoList = userController.viewAlbum.getPhotos();
@@ -121,6 +132,7 @@ public class albumController {
 		
 		int row = 0;
 		int col = 0;
+		int failedLocates = 0;
 		InputStream stream = null;
 		for (Photo photo: photoList) {
 			//photo.reCaption(""+ row);
@@ -136,6 +148,7 @@ public class albumController {
 			catch (FileNotFoundException e)
 			{
 				//Input Stream could not be created from missing file, load a photo with error
+				failedLocates++;
 				stream = new FileInputStream("data" + File.separator + "PhotoNotFound.png");
 			}
 			
@@ -174,9 +187,13 @@ public class albumController {
 				col = 0;
 				row++;
 			}
-			
 		}
 		mainstage.show();
+		if(failedLocates > 0)
+		{
+			Alert alert = new Alert(AlertType.WARNING, failedLocates + " photo(s) were not able to be located", ButtonType.OK);
+			alert.showAndWait();
+		}
 	}
 	
 	public void changeCaption() throws IOException, ClassNotFoundException{
@@ -207,19 +224,20 @@ public class albumController {
 		        System.out.println(newPhoto.printDate());
 		        
 		        Boolean duplicate = false;
-		        ArrayList<Album> albums = Photos55App.user.getAlbums();
-		        for (Album album: albums) {
-		        	ArrayList<Photo> photos = album.getPhotos();
-		        	for(Photo photo : photos)
-	        		{
-	        			if(photo.getPath().equals(newPhoto.getPath()))
-        				{
-        					duplicate = true;
-        					failedImports++;
-        					break;
-        				}
-	        		}
-		        }
+		        //ArrayList<Album> albums = Photos55App.user.getAlbums();
+		        
+        		ArrayList<Photo> photos = userController.viewAlbum.getPhotos();
+        		for(Photo photo : photos)
+        		{
+        			if(file.getCanonicalFile().equals(new File(photo.getPath()).getCanonicalFile()))
+    				{
+    					duplicate = true;
+    					failedImports++;
+    					break;
+    				}
+    				
+        		}
+		        	
 		        if(duplicate == false)
 		        {
 		        	userController.viewAlbum.getPhotos().add(newPhoto);
@@ -229,7 +247,7 @@ public class albumController {
 	    
 	    if(failedImports >= 1)
 	    {
-	    	Alert alert = new Alert(AlertType.WARNING, failedImports + " photo(s) already imported into the album. Skipping.", ButtonType.OK);
+	    	Alert alert = new Alert(AlertType.WARNING, failedImports + " photo(s) already imported into the album", ButtonType.OK);
 			alert.showAndWait();
 	    }
 	    
@@ -251,38 +269,34 @@ public class albumController {
 		clicked(null, null);
 	}
 	
-	public void copyPhoto() {
+	public boolean copyPhoto() {
 		if(clickedPhoto == null) {
 			Alert alert = new Alert(AlertType.ERROR, "No photo selected", ButtonType.OK);
 			alert.showAndWait();
-			return;
+			return false;
 		}
 		Album selectedAlbum = dropdownMenu.getSelectionModel().getSelectedItem();
 		if(selectedAlbum == null) {
-			return;
+			Alert alert = new Alert(AlertType.ERROR, "No destination album selected", ButtonType.OK);
+			alert.showAndWait();
+			return false;
 		}
 		if(selectedAlbum.getPhotos().contains(clickedPhoto)) {
 			Alert alert = new Alert(AlertType.ERROR, "Photo already in destination album", ButtonType.OK);
 			alert.showAndWait();
-			return;
+			return false;
 		}
 		selectedAlbum.getPhotos().add(clickedPhoto);
 		dropdownMenu.setValue(null);
 		//Photos55App.writePhotosApp();
+		return true;
 	}
 	
 	public void movePhoto() throws ClassNotFoundException, IOException {
-		copyPhoto();
-		removePhoto();
-	}
-	public ObservableList<tagDisplay> getTagTable()
-	{
-		ObservableList<tagDisplay> result = FXCollections.observableArrayList();
-		for(Tag tag : clickedPhoto.getTags())
+		if(copyPhoto())
 		{
-			result.add(new tagDisplay(tag.getTag(), tag.getValue()));
+			removePhoto();
 		}
-		return result;
 	}
 	
 	public void addTag() throws IOException, ClassNotFoundException
