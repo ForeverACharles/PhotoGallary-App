@@ -96,10 +96,12 @@ public class userController {
 		viewAlbum = theAlbums.get(index);
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/Photos55/view/openAlbum.fxml"));
+		loader.setLocation(getClass().getResource("/Photos55/view/album.fxml"));
 		Pane root = (Pane)loader.load();
 		Stage stage = (Stage) openAlbumButton.getScene().getWindow();
     	Scene scene = new Scene(root);
+    	albumController photosController = loader.getController();
+		photosController.start(stage);
     	stage.setScene(scene);
     	stage.show();
 	}
@@ -266,7 +268,7 @@ public class userController {
 		*/
 	
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/Photos55/view/searchResults.fxml"));
+		loader.setLocation(getClass().getResource("/Photos55/view/search.fxml"));
 		Pane root = (Pane)loader.load();
 		Stage stage = (Stage) dateSearchButton.getScene().getWindow();
     	Scene scene = new Scene(root);
@@ -337,7 +339,7 @@ public class userController {
 		}
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/Photos55/view/searchResults.fxml"));
+		loader.setLocation(getClass().getResource("/Photos55/view/search.fxml"));
 		Pane root = (Pane)loader.load();
 		Stage stage = (Stage) tagSearchButton.getScene().getWindow();
     	Scene scene = new Scene(root);
@@ -397,7 +399,8 @@ public class userController {
 		}
 	}
 	
-	public void logout() throws IOException {
+	public void logout() throws IOException, ClassNotFoundException {
+		Photos55App.writePhotosApp();
     	FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/Photos55/view/Login.fxml"));
 		Pane root = (Pane)loader.load();

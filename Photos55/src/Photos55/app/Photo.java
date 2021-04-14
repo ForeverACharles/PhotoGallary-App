@@ -5,44 +5,43 @@ import java.util.*;
 
 public class Photo implements Serializable {
 
-	private String name;
-	private String dir;
+	private String path;
 	private LocalDate date;
-	private String captions;
+	private String caption;
 	private ArrayList<Tag> tags;
-	
-	public Photo(String name, String dir, LocalDate date, String captions)
+	public static final String storeDir = "data";
+	public static final String storeFile = "photos.dat";
+	static final long serialVersionUID = 1L;
+	public Photo(String path, LocalDate date)
 	{
-		this.name = name;
-		this.dir = dir;
+		this.path = path;
 		this.date = date;
-		this.captions = captions;
+		this.caption = "";
 		tags = new ArrayList<Tag>();
 	}
 	
-	public String getName()
-	{
-		return this.name;
-	}
 	
 	public LocalDate getDate()
 	{
 		return date;
 	}
 	
+	public String getPath() {
+		return path;
+	}
 	public String printDate()
 	{
 		return date.toString();
 	}
 	
-	public String getCaptions()
+	public String getCaption()
 	{
-		return captions;
+		return caption;
 	}
 	
-	public void reCaption(String newCaptions)
+	public void reCaption(String newCaption)
 	{
-		captions = newCaptions;
+		caption = newCaption;
 	}
 	
 	public ArrayList<Tag> getTags()

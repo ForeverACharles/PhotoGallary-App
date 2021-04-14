@@ -81,7 +81,8 @@ public class adminController {
 		users.setItems(userList);
     }
     
-    public void logout() throws IOException {
+    public void logout() throws IOException, ClassNotFoundException {
+    	Photos55App.writePhotosApp();
     	FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/Photos55/view/Login.fxml"));
 		Pane root = (Pane)loader.load();

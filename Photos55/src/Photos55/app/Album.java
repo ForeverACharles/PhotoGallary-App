@@ -7,6 +7,9 @@ public class Album implements Serializable {
 
 	private String name;
 	private ArrayList<Photo> photos;
+	public static final String storeDir = "data";
+	public static final String storeFile = "albums.dat";
+	static final long serialVersionUID = 1L;
 	
 	public Album(String name) {
 		this.name = name;

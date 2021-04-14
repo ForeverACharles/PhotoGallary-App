@@ -10,6 +10,7 @@ public class User implements Serializable {
 	
 	public static final String storeDir = "data";
 	public static final String storeFile = "users.dat";
+	static final long serialVersionUID = 1L;
 	
 	public User(String name)
 	{
@@ -56,6 +57,7 @@ public class User implements Serializable {
 		ObjectOutputStream OOS = new ObjectOutputStream(
 			new FileOutputStream(storeDir + File.separator + storeFile));
 		OOS.writeObject(user);
+		OOS.close();
 	}
 	
 	public User readUser() throws IOException, ClassNotFoundException
