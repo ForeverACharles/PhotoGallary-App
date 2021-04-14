@@ -1,5 +1,7 @@
 package Photos55.view;
 
+import Photos55.app.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -21,7 +23,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import Photos55.app.*;
 
 public class userController {
 	
@@ -182,7 +183,7 @@ public class userController {
 	{
 		int index = userAlbums.getSelectionModel().getSelectedIndex();
 		if(theAlbums.size() == 0 || index == -1) {
-			Alert alert = new Alert(AlertType.ERROR, "List is Empty or Nothing is Selected", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR, "Album list is empty or no album selected", ButtonType.OK);
 			alert.showAndWait();
 			return;
 		}

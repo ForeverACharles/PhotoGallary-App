@@ -86,13 +86,16 @@ public class Photos55App extends Application {
 	{
 		ObjectInputStream OIS = new ObjectInputStream(
 			new FileInputStream("data" + File.separator + "userList"));
-		return (ArrayList<User>) OIS.readObject();
+		ArrayList<User> userList = (ArrayList<User>)OIS.readObject();
+		OIS.close();
+		return userList;
 	}
 	public static void writePhotosApp() throws IOException, ClassNotFoundException
 	{
 		ObjectOutputStream OOS = new ObjectOutputStream(
 			new FileOutputStream("data" + File.separator + "userList"));
 		OOS.writeObject(userList);
+		OOS.close();
 	}
 	
 	

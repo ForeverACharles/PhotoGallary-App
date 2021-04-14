@@ -20,7 +20,6 @@ public class Photo implements Serializable {
 		tags = new ArrayList<Tag>();
 	}
 	
-	
 	public LocalDate getDate()
 	{
 		return date;
@@ -57,5 +56,22 @@ public class Photo implements Serializable {
 	public void deleteTag(Tag tag)
 	{
 		tags.remove(tag);
+	}
+	
+	public void writePhoto(Photo photo) throws IOException, ClassNotFoundException
+	{
+		ObjectOutputStream OOS = new ObjectOutputStream(
+			new FileOutputStream(storeDir + File.separator + storeFile));
+		OOS.writeObject(photo);
+		OOS.close();
+	}
+	
+	public Photo readPhoto() throws IOException, ClassNotFoundException
+	{
+		ObjectInputStream OIS = new ObjectInputStream(
+			new FileInputStream(storeDir + File.separator + storeFile));
+		Photo photo = (Photo)OIS.readObject();
+		OIS.close();
+		return photo;
 	}
 }

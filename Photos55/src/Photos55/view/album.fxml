@@ -35,11 +35,11 @@
       <Button layoutX="534.0" layoutY="245.0" mnemonicParsing="false" onAction="#changeCaption" text="Add/Edit" />
       <Text layoutX="366.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date/Time:" />
       <Text fx:id="dateField" layoutX="432.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Button layoutX="533.0" layoutY="361.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="527.0" layoutY="332.0" mnemonicParsing="false" text="Delete" />
-      <ScrollPane layoutX="14.0" layoutY="84.0" prefHeight="260.0" prefWidth="332.0">
+      <Button layoutX="533.0" layoutY="361.0" mnemonicParsing="false" text="Add" onAction="#addTag" />
+      <Button layoutX="527.0" layoutY="332.0" mnemonicParsing="false" text="Delete" onAction="#deleteTag" />
+      <ScrollPane layoutX="14.0" layoutY="84.0" prefHeight="260.0" prefWidth="340.0">
          <content>
-            <GridPane fx:id="imageGrid" prefHeight="173.0" prefWidth="224.0">
+            <GridPane fx:id="imageGrid" prefHeight="173.0" prefWidth="310" maxWidth="335">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -64,15 +64,15 @@
       <Button layoutX="108.0" layoutY="58.0" mnemonicParsing="false" onAction="#addPhoto" text="Add Photo" />
       <Button layoutX="186.0" layoutY="58.0" mnemonicParsing="false" onAction="#removePhoto" text="Remove Photo" />
       <Button layoutX="423.0" layoutY="22.0" mnemonicParsing="false" onAction="#back" text="Back" />
-      <TableView layoutX="362.0" layoutY="276.0" prefHeight="86.0" prefWidth="162.0">
+      <TableView fx:id="tagTable" layoutX="362.0" layoutY="276.0" prefHeight="86.0" prefWidth="162.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Tag" />
-          <TableColumn prefWidth="86.0" text="Value" />
+          <TableColumn fx:id="Tag" prefWidth="75.0" text="Tag" />
+          <TableColumn fx:id="Value" prefWidth="86.0" text="Value" />
         </columns>
       </TableView>
-      <TextField layoutX="373.0" layoutY="364.0" prefHeight="25.0" prefWidth="58.0" />
+      <TextField fx:id="tagToAdd" layoutX="373.0" layoutY="364.0" prefHeight="25.0" prefWidth="58.0" />
       <Text layoutX="351.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag" />
-      <TextField layoutX="467.0" layoutY="364.0" prefHeight="25.0" prefWidth="58.0" />
+      <TextField fx:id="valueToAdd" layoutX="467.0" layoutY="364.0" prefHeight="25.0" prefWidth="58.0" />
       <Text layoutX="434.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value" />
    </children>
 </Pane>

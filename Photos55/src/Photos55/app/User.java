@@ -64,6 +64,8 @@ public class User implements Serializable {
 	{
 		ObjectInputStream OIS = new ObjectInputStream(
 			new FileInputStream(storeDir + File.separator + storeFile));
-		return (User)OIS.readObject();
+		User user = (User)OIS.readObject();
+		OIS.close();
+		return user;
 	}
 }
