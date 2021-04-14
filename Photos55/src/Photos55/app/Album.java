@@ -16,6 +16,10 @@ public class Album implements Serializable {
 		photos = new ArrayList<Photo>();
 	}
 	
+	public String toString() {
+		return name;
+	}
+	
 	public String getName() {
 		return name;
 	}

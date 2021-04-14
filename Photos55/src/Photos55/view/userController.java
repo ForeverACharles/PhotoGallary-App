@@ -196,6 +196,7 @@ public class userController {
 	
 	public void searchByDate() throws IOException
 	{
+		filteredPhotos.clear();
 		LocalDate start = startDate.getValue();
 		LocalDate end = endDate.getValue();
 		
@@ -214,7 +215,9 @@ public class userController {
 						LocalDate photoDate = photo.getDate();
 						if(photoDate != null && (photoDate.isEqual(start) || photoDate.isAfter(start)))
 						{
-							filteredPhotos.add(photo);
+							if(!(filteredPhotos.contains(photo))){
+								filteredPhotos.add(photo);
+							}
 						}
 					}
 				}
@@ -273,6 +276,8 @@ public class userController {
 		Pane root = (Pane)loader.load();
 		Stage stage = (Stage) dateSearchButton.getScene().getWindow();
     	Scene scene = new Scene(root);
+    	searchController photosController = loader.getController();
+		photosController.start(stage);
     	stage.setScene(scene);
     	stage.show();
     	
@@ -280,6 +285,7 @@ public class userController {
 	
 	public void searchByTag() throws IOException
 	{
+		filteredPhotos.clear();
 		String Tag1 = tag1.getText();
 		String Value1 = value1.getText();
 		String Tag2 = tag2.getText();
@@ -344,6 +350,8 @@ public class userController {
 		Pane root = (Pane)loader.load();
 		Stage stage = (Stage) tagSearchButton.getScene().getWindow();
     	Scene scene = new Scene(root);
+    	searchController photosController = loader.getController();
+		photosController.start(stage);
     	stage.setScene(scene);
     	stage.show();
 	}
@@ -362,9 +370,11 @@ public class userController {
 			for(Album album : theAlbums) {
 				if(album.getNumber() > 0) {
 					for(Photo photo : album.getPhotos()) {
-						if(photo.getTags().contains(pair))
+						if(photo.containsTag(pair))
 						{
-							filteredPhotos.add(photo);
+							if(!(filteredPhotos.contains(photo))){
+								filteredPhotos.add(photo);
+							}
 						}	
 					}
 				}
@@ -376,9 +386,11 @@ public class userController {
 			for(Album album : theAlbums) {
 				if(album.getNumber() > 0) {
 					for(Photo photo : album.getPhotos()) {
-						if(photo.getTags().contains(pair1) && photo.getTags().contains(pair2))
+						if(photo.containsTag(pair1) && photo.containsTag(pair2))
 						{
-							filteredPhotos.add(photo);
+							if(!(filteredPhotos.contains(photo))){
+								filteredPhotos.add(photo);
+							}
 						}
 					}
 				}
@@ -390,9 +402,11 @@ public class userController {
 			for(Album album : theAlbums) {
 				if(album.getNumber() > 0) {
 					for(Photo photo : album.getPhotos()) {
-						if(photo.getTags().contains(pair1) || photo.getTags().contains(pair2))
+						if(photo.containsTag(pair1) || photo.containsTag(pair2))
 						{
-							filteredPhotos.add(photo);
+							if(!(filteredPhotos.contains(photo))){
+								filteredPhotos.add(photo);
+							}
 						}
 					}
 				}

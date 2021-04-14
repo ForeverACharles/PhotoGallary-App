@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -46,6 +47,7 @@ public class albumController {
 	@FXML ImageView currentView;
 	@FXML Text dateField;
 	@FXML TextField captionField;
+	@FXML ChoiceBox<Album> dropdownMenu;
 	Photo clickedPhoto = null;
 	Image clickedImage = null;
 	Stage mainstage;
@@ -61,6 +63,12 @@ public class albumController {
 	public void start(Stage stage) throws FileNotFoundException
 	{
 		mainstage = stage;
+		ObservableList<Album> albums = FXCollections.observableArrayList();
+		for (Album album: Photos55App.user.getAlbums()) {
+			if (album != userController.viewAlbum)
+				albums.add(album);
+		}
+		dropdownMenu.setItems(albums);
 		makeGrid();
 	}
 	
@@ -175,9 +183,8 @@ public class albumController {
 		}
 		
 		clickedPhoto.reCaption(captionField.getText());
+		//Photos55App.writePhotosApp();
 		makeGrid();
-		
-		Photos55App.writePhotosApp();
 	}
 	
 	public void addPhoto() throws IOException, ClassNotFoundException{
@@ -194,17 +201,19 @@ public class albumController {
 		        System.out.println(newPhoto.printDate());
 		        
 		        Boolean duplicate = false;
-		        ArrayList<Photo> photos = userController.viewAlbum.getPhotos();
-		        for(Photo photo : photos)
-		        {
-		        	if(photo.getPath().equals(newPhoto.getPath()))
-		        	{
-		        		duplicate = true;
-		        		failedImports++;
-		        		break;
-		        	}
+		        ArrayList<Album> albums = Photos55App.user.getAlbums();
+		        for (Album album: albums) {
+		        	ArrayList<Photo> photos = album.getPhotos();
+		        	for(Photo photo : photos)
+		        		{
+		        			if(photo.getPath().equals(newPhoto.getPath()))
+		        				{
+		        					duplicate = true;
+		        					failedImports++;
+		        					break;
+		        				}
+		        		}
 		        }
-		        
 		        if(duplicate == false)
 		        {
 		        	userController.viewAlbum.getPhotos().add(newPhoto);
@@ -219,8 +228,7 @@ public class albumController {
 	    }
 	    
 	    makeGrid();
-	    
-	    Photos55App.writePhotosApp();
+	    //Photos55App.writePhotosApp();
 	}
 	
 	public void removePhoto() throws IOException, ClassNotFoundException {
@@ -233,12 +241,34 @@ public class albumController {
 		
 		userController.viewAlbum.getPhotos().remove(clickedPhoto);
 		makeGrid();
-		
+		//Photos55App.writePhotosApp();
 		clicked(null, null);
-		
-		Photos55App.writePhotosApp();
 	}
 	
+	public void copyPhoto() {
+		if(clickedPhoto == null) {
+			Alert alert = new Alert(AlertType.ERROR, "No photo selected", ButtonType.OK);
+			alert.showAndWait();
+			return;
+		}
+		Album selectedAlbum = dropdownMenu.getSelectionModel().getSelectedItem();
+		if(selectedAlbum == null) {
+			return;
+		}
+		if(selectedAlbum.getPhotos().contains(clickedPhoto)) {
+			Alert alert = new Alert(AlertType.ERROR, "Photo already in destination album", ButtonType.OK);
+			alert.showAndWait();
+			return;
+		}
+		selectedAlbum.getPhotos().add(clickedPhoto);
+		dropdownMenu.setValue(null);
+		//Photos55App.writePhotosApp();
+	}
+	
+	public void movePhoto() throws ClassNotFoundException, IOException {
+		copyPhoto();
+		removePhoto();
+	}
 	public ObservableList<tagDisplay> getTagTable()
 	{
 		ObservableList<tagDisplay> result = FXCollections.observableArrayList();
@@ -279,7 +309,7 @@ public class albumController {
 		tagToAdd.clear();
 		valueToAdd.clear();
 		
-		Photos55App.writePhotosApp();
+		//Photos55App.writePhotosApp();
 		tagTableContents = getTagTable();
 		tagTable.setItems(tagTableContents);
 	}
@@ -294,7 +324,7 @@ public class albumController {
 		}
 		clickedPhoto.getTags().remove(clickedPhoto.getTags().get(index));
 		
-		Photos55App.writePhotosApp();
+		//Photos55App.writePhotosApp();
 		tagTableContents = getTagTable();
 		tagTable.setItems(tagTableContents);
 	}
@@ -311,6 +341,7 @@ public class albumController {
 	}
 	
 	public void back() throws IOException {
+		//Photos55App.writePhotosApp();
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/Photos55/view/nonAdmin.fxml"));
 		Pane root = (Pane)loader.load();

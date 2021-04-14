@@ -58,6 +58,14 @@ public class Photo implements Serializable {
 		tags.remove(tag);
 	}
 	
+	public boolean containsTag(Tag stag) {
+		for (Tag tag: tags) {
+			if (tag.getTag().compareTo(stag.getTag())==0 && tag.getValue().compareTo(stag.getValue())==0) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public void writePhoto(Photo photo) throws IOException, ClassNotFoundException
 	{
 		ObjectOutputStream OOS = new ObjectOutputStream(
