@@ -1,5 +1,18 @@
 package Photos55.view;
 
+/**
+ *  Gui controller for user album interaction
+ *  
+ *  <code>userController</code> contains logic to handle user 
+ *  interaction with the <code>Photos</code> application. The
+ *  gui allows a user to view, create, and remove photo albums,
+ *  as well as search all photos by date or tag.
+ *   
+ *   @author Charles Li
+ *   @author Max Sun
+ *   @version 1.69 Apr 2021
+*/
+
 import Photos55.app.*;
 
 import java.io.IOException;
@@ -26,7 +39,14 @@ import javafx.stage.Stage;
 
 public class userController {
 	
+	/**
+	 *  <code>User</code> of the current application session
+	 */
 	User user = Photos55App.user;
+	
+	/**
+	 *  <code>Album</code>s belonging to the currently logged in <code>User</code>
+	 */
 	ArrayList<Album> theAlbums = user.getAlbums();
 	
 	@FXML TableView<TableDisplay> userAlbums;
@@ -34,9 +54,18 @@ public class userController {
 	@FXML TableColumn<TableDisplay, String> PhotoCount;
 	@FXML TableColumn<TableDisplay, String> Earliest;
 	@FXML TableColumn<TableDisplay, String> Latest;
+	
+	/**
+	 *  Table contents of a <code>User</code>'s albums, displayed in Name, Photo Count,
+	 *  and Date format
+	 */
 	ObservableList<TableDisplay> tableContents;
 	
 	@FXML Button openAlbumButton;
+	
+	/**
+	 *  <code>Album</code> representing the <code>User</code>'s currently selected Album
+	 */
 	public static Album viewAlbum;
 	
 	@FXML TextField albumEntry;
@@ -52,14 +81,20 @@ public class userController {
 	@FXML Slider tagSlider;
 	@FXML Button tagSearchButton;
 	
+	/**
+	 *  <code>Photo</code>s filtered by search criteria of the <code>User</code>
+	 */
 	public static ArrayList<Photo> filteredPhotos = new ArrayList<Photo>();
 	
 	@FXML Button logoutButton;
 	
+	/**
+	 *  <code>userController</code> start method.
+	 *  Loads contents for <code>User</code> interaction with their albums.
+	 *  @param stage the stage used to set gui scene and pass into other controllers
+	 */
 	public void start(Stage stage)
-	{
-		System.out.println(user.getName());
-		
+	{	
 		tableContents = getTable();
 	
 		Name.setCellValueFactory(new PropertyValueFactory<TableDisplay, String>("Name"));
@@ -70,6 +105,9 @@ public class userController {
 		userAlbums.setItems(tableContents);
 	}
 	
+	/**
+	 *  Reads relevant album information from the <code>User</code>'s albums
+	 */
 	public ObservableList<TableDisplay> getTable()
 	{
 		ObservableList<TableDisplay> result = FXCollections.observableArrayList();
@@ -86,11 +124,15 @@ public class userController {
 		return result;
 	}
 	
+	/**
+	 *  Opens the currently selected <code>Album</code> and gets the next scene. Reports error
+	 *  when none are available or none selected
+	 */
 	public void openAlbum() throws IOException
 	{
 		int index = userAlbums.getSelectionModel().getSelectedIndex();
 		if(theAlbums.size() == 0 || index == -1) {
-			Alert alert = new Alert(AlertType.ERROR, "List is Empty or Nothing is Selected", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR, "No albums available or album not selected", ButtonType.OK);
 			alert.showAndWait();
 			return;
 		}
@@ -107,6 +149,10 @@ public class userController {
     	stage.show();
 	}
 	
+	/**
+	 *  Creates <code>Album</code> with <code>User</code> provided Album name. Reports error
+	 *  the Album cannot be added
+	 */
 	public void createAlbum() throws IOException, ClassNotFoundException
 	{
 		String requestedAlbum = albumEntry.getText();
@@ -136,13 +182,17 @@ public class userController {
 		userAlbums.setItems(tableContents);
 	}
 	
+	/**
+	 *  Renames the currently selected <code>Album</code>. Reports error
+	 *  when none are available, none selected, or album already exists
+	 */
 	public void renameAlbum() throws IOException, ClassNotFoundException
 	{
 		String requestedAlbum = albumEntry.getText();
 		int index = userAlbums.getSelectionModel().getSelectedIndex();
 		
 		if(theAlbums.size() == 0 || index == -1) {
-			Alert alert = new Alert(AlertType.ERROR, "List is empty or no album selected", ButtonType.OK);
+			Alert alert = new Alert(AlertType.ERROR, "No albums available or album not selected", ButtonType.OK);
 			alert.showAndWait();
 			return;
 		}
@@ -179,6 +229,10 @@ public class userController {
 		userAlbums.setItems(tableContents);
 	}
 	
+	/**
+	 *  Deletes the currently selected <code>Album</code>. Reports error
+	 *  when none are available or none selected
+	 */
 	public void deleteAlbum() throws IOException, ClassNotFoundException
 	{
 		int index = userAlbums.getSelectionModel().getSelectedIndex();
@@ -194,6 +248,11 @@ public class userController {
 		userAlbums.setItems(tableContents);
 	}
 	
+	/**
+	 *  Filters all <code>Photo</code>s belonging to the current User by Date. 
+	 *  Sends User to filtered results scene to view filtered Photos. Reports
+	 *  error if Date formatting is incorrect
+	 */
 	public void searchByDate() throws IOException
 	{
 		filteredPhotos.clear();
@@ -292,6 +351,11 @@ public class userController {
     	
 	}
 	
+	/**
+	 *  Filters all <code>Photo</code>s belonging to the current User by Tag 
+	 *  Sends User to filtered results scene to view filtered Photos. Reports
+	 *  error if Tag formatting is incorrect
+	 */
 	public void searchByTag() throws IOException
 	{
 		filteredPhotos.clear();
@@ -375,6 +439,9 @@ public class userController {
     	stage.show();
 	}
 	
+	/**
+	 *  Filters all <code>Photo</code>s belonging to the current User by Tag 
+	 */
 	public void tagFilter(Tag pair1, Tag pair2, int slider)		//helper function for searchByTag()
 	{
 		

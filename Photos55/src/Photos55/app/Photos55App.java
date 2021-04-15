@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 
 public class Photos55App extends Application {
 
-	public static Photos55App app;
 	public static ArrayList<User> userList = new ArrayList<User>();
 	public static User user;
 	
