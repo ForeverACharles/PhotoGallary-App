@@ -34,6 +34,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+/**
+ *  Gui controller for user photo search
+ *  
+ *  
+ *  <code>presentationController</code> contains logic to handle filtered searches of
+ *   <code>Photo</code> The
+ *  gui allows a user to view the search results from a photo search
+ *  
+ *   
+ *   @author Charles Li
+ *   @author Max Sun
+ *   @version 1.69 Apr 2021
+*/
 
 public class searchController {
 	@FXML Button logoutButton;
@@ -53,12 +66,20 @@ public class searchController {
 	
 	@FXML TextField tagToAdd;
 	@FXML TextField valueToAdd;
-	
+	/**
+	 *  <code>searchController</code> start method.
+	 *  Loads contents for <code>Photo</code> presentation.
+	 *  @param stage the stage used to set gui scene and pass into other controllers
+	 */		
 	public void start(Stage stage) throws FileNotFoundException {
 		mainstage = stage;
 		makeGrid();
 	}
-	
+	/**
+	 *  event handler for photo selection, displays photo details
+	 *  @param photo the photo clicked
+	 *  @param image the image corresponding to the clicked photo
+	 */		
 	public void clicked(Photo photo, Image image) throws FileNotFoundException {
 		
 		clickedPhoto = photo;
@@ -84,6 +105,9 @@ public class searchController {
 			tagTable.setItems(tagTableContents);
 		}
 	}
+	/**
+	 *  creates imageview instances from the photos and loads into the grid
+	 */	
 	public void makeGrid() throws FileNotFoundException {
 		
 		ArrayList<Photo> photoList = userController.filteredPhotos;
@@ -160,6 +184,9 @@ public class searchController {
 		}
 		mainstage.show();
 	}
+	/**
+	 *  changes the caption of the selected photo based on the input in textfields
+	 */	
 	public void changeCaption() throws IOException, ClassNotFoundException{
 		
 		if(clickedPhoto == null) {
@@ -172,7 +199,9 @@ public class searchController {
 		//Photos55App.writePhotosApp();
 		makeGrid();
 	}
-	
+	/**
+	 *  creates an <code>Album</code> from the filtered photo search results
+	 */		
 	public void createFromResults() {
 		String requestedAlbum = albumField.getText();
 		ArrayList<Album> theAlbums = Photos55App.user.getAlbums();
@@ -200,7 +229,9 @@ public class searchController {
 		albumField.clear();
 		
 	}
-	
+	/**
+	 *  receives the tags of the selected photo and returns in displayable format
+	 */			
 	public ObservableList<tagDisplay> getTagTable()
 	{
 		ObservableList<tagDisplay> result = FXCollections.observableArrayList();
@@ -210,7 +241,9 @@ public class searchController {
 		}
 		return result;
 	}
-	
+	/**
+	 *  adds a tag to the selected photo based on the input in textfields
+	 */		
 	public void addTag() throws IOException, ClassNotFoundException
 	{
 		Tag TagToAdd = new Tag(tagToAdd.getText(), valueToAdd.getText());
@@ -245,7 +278,9 @@ public class searchController {
 		tagTableContents = getTagTable();
 		tagTable.setItems(tagTableContents);
 	}
-	
+	/**
+	 *  deletes the selected tag from the selected photo
+	 */		
 	public void deleteTag() throws IOException, ClassNotFoundException
 	{
 		int index = tagTable.getSelectionModel().getSelectedIndex();
@@ -260,7 +295,9 @@ public class searchController {
 		tagTableContents = getTagTable();
 		tagTable.setItems(tagTableContents);
 	}
-	
+	/**
+	 *logs the user out and goes back to the login screen
+	 */		
     public void logout() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
     	FXMLLoader loader = new FXMLLoader();
@@ -271,6 +308,9 @@ public class searchController {
     	stage.setScene(scene);
     	stage.show();
     }
+	/**
+	 *goes back to the user view screen
+	 */	
     public void back() throws IOException {
     	FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/Photos55/view/nonAdmin.fxml"));
@@ -282,7 +322,9 @@ public class searchController {
     	stage.setScene(scene);
     	stage.show();
     }
-    
+	/**
+	 *serializes session info and quits app
+	 */	   
     public void quit() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
     	System.exit(0);
