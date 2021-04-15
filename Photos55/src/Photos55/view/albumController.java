@@ -61,6 +61,8 @@ public class albumController {
 	@FXML TextField tagToAdd;
 	@FXML TextField valueToAdd;
 	
+	@FXML Button presentButton;
+	
 	public void start(Stage stage) throws FileNotFoundException
 	{
 		mainstage = stage;
@@ -356,6 +358,18 @@ public class albumController {
 		//Photos55App.writePhotosApp();
 		tagTableContents = getTagTable();
 		tagTable.setItems(tagTableContents);
+	}
+	
+	public void present() throws IOException, ClassNotFoundException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/Photos55/view/presentation.fxml"));
+		Pane root = (Pane)loader.load();
+		Stage stage = (Stage) presentButton.getScene().getWindow();
+		Scene scene = new Scene(root);
+		presentationController photosController = loader.getController();
+		photosController.start(mainstage);
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	public void logout() throws IOException, ClassNotFoundException {

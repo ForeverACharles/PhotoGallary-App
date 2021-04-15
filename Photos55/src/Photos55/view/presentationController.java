@@ -27,6 +27,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -75,7 +76,29 @@ public class presentationController {
 			images.add(image);
 		}
 		if(!(images.isEmpty())) {
-			imageViewer.setImage(images.get(0));
+			
+			//imageViewer.setPreserveRatio(true);
+			imageViewer.setSmooth(true);
+			imageViewer.setFitHeight(250);
+			double width = 0;
+
+            double ratioX = imageViewer.getFitWidth() / images.get(0).getWidth();
+            double ratioY = imageViewer.getFitHeight() / images.get(0).getHeight();
+
+            double scaleRatio = 0;
+            if(ratioX >= ratioY) 
+            {
+                scaleRatio = ratioY;
+            } 
+            else {
+                scaleRatio = ratioX;
+            }
+
+            width = images.get(0).getWidth() * scaleRatio;
+
+            imageViewer.setX((imageViewer.getFitWidth() - width) / 2);
+            //imageViewer.setY((imageViewer.getFitHeight() - h) / 2);
+            imageViewer.setImage(images.get(0));
 		}
 	}
 	

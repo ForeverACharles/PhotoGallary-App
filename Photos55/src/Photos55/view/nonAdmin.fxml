@@ -14,54 +14,50 @@
    <children>
       <Button layoutX="487.0" layoutY="22.0" mnemonicParsing="false" onAction="#quit" prefHeight="25.0" prefWidth="85.0" text="Quit" />
       <Button fx:id="logoutButton" layoutX="424.0" layoutY="22.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-      <Text layoutX="20.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Non-Admin Subsystem">
+      <Text layoutX="20.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Albums">
          <font>
             <Font name="Comic Sans MS" size="24.0" />
          </font>
       </Text>
-      <Button layoutX="92.0" layoutY="346.0" mnemonicParsing="false" onAction="#createAlbum" prefHeight="25.0" prefWidth="71.0" text="Create" />
-      <TextField fx:id="albumEntry" layoutX="93.0" layoutY="314.0" />
-      <Text layoutX="21.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Albums:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Button layoutX="248.0" layoutY="64.0" mnemonicParsing="false" onAction="#deleteAlbum" prefHeight="27.0" prefWidth="71.0" text="Delete" />
+      <Button layoutX="177.0" layoutY="350.0" mnemonicParsing="false" onAction="#createAlbum" prefHeight="25.0" prefWidth="71.0" text="Create" />
+      <TextField fx:id="albumEntry" layoutX="95.0" layoutY="314.0" prefHeight="26.0" prefWidth="232.0" />
+      <Button layoutX="256.0" layoutY="66.0" mnemonicParsing="false" onAction="#deleteAlbum" prefHeight="27.0" prefWidth="71.0" text="Delete" />
       <Text layoutX="17.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album Name:" />
-      <Button layoutX="170.0" layoutY="346.0" mnemonicParsing="false" onAction="#renameAlbum" prefHeight="25.0" prefWidth="71.0" text="Rename" />
-      <TableView fx:id="userAlbums" layoutX="17.0" layoutY="104.0" prefHeight="200.0" prefWidth="301.0">
+      <Button layoutX="255.0" layoutY="350.0" mnemonicParsing="false" onAction="#renameAlbum" prefHeight="25.0" prefWidth="71.0" text="Rename" />
+      <TableView fx:id="userAlbums" layoutX="17.0" layoutY="104.0" prefHeight="200.0" prefWidth="310.0">
         <columns>
-          <TableColumn fx:id="Name" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="PhotoCount" prefWidth="75.0" text="Photo Count" />
-          <TableColumn fx:id="Earliest" prefWidth="75.0" text="Earliest" />
-          <TableColumn fx:id="Latest" prefWidth="75.0" text="Latest" />
+          <TableColumn fx:id="Name" prefWidth="87.65216064453125" text="Name" />
+          <TableColumn fx:id="PhotoCount" prefWidth="74.295654296875" text="Photo Count" />
+          <TableColumn fx:id="Earliest" prefWidth="72.6260986328125" text="Earliest" />
+          <TableColumn fx:id="Latest" prefWidth="81.80865478515625" text="Latest" />
         </columns>
       </TableView>
-      <Button fx:id="openAlbumButton" layoutX="185.0" layoutY="64.0" mnemonicParsing="false" onAction="#openAlbum" prefHeight="25.0" prefWidth="56.0" text="Open" />
-      <Button fx:id="dateSearchButton" layoutX="507.0" layoutY="152.0" mnemonicParsing="false" onAction="#searchByDate" prefHeight="44.0" prefWidth="78.0" text="Search by&#10;Date Range" textAlignment="CENTER" />
-      <Text layoutX="397.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image Search:">
+      <Button fx:id="openAlbumButton" layoutX="192.0" layoutY="66.0" mnemonicParsing="false" onAction="#openAlbum" prefHeight="27.0" prefWidth="56.0" text="Open" />
+      <Button fx:id="dateSearchButton" layoutX="506.0" layoutY="152.0" mnemonicParsing="false" onAction="#searchByDate" prefHeight="44.0" prefWidth="78.0" text="Search by&#10;Date Range" textAlignment="CENTER" />
+      <Text layoutX="348.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Image Search">
          <font>
-            <Font size="20.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <DatePicker fx:id="startDate" layoutX="346.0" layoutY="122.0" prefHeight="17.0" prefWidth="137.0" />
-      <DatePicker fx:id="endDate" layoutX="346.0" layoutY="170.0" prefHeight="17.0" prefWidth="137.0" />
-      <Text layoutX="346.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" />
+      <DatePicker fx:id="startDate" layoutX="348.0" layoutY="122.0" prefHeight="17.0" prefWidth="137.0" />
+      <DatePicker fx:id="endDate" layoutX="348.0" layoutY="170.0" prefHeight="17.0" prefWidth="137.0" />
+      <Text layoutX="348.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" />
       <Text layoutX="348.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" />
-      <TextField fx:id="tag1" layoutX="345.0" layoutY="236.0" prefHeight="25.0" prefWidth="71.0" />
+      <TextField fx:id="tag1" layoutX="347.0" layoutY="236.0" prefHeight="25.0" prefWidth="71.0" />
       <Text layoutX="397.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="345.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag 1" />
-      <Button fx:id="tagSearchButton" layoutX="517.0" layoutY="274.0" mnemonicParsing="false" onAction="#searchByTag" text="Search by&#10;Tags" textAlignment="CENTER" />
-      <TextField fx:id="value1" layoutX="427.0" layoutY="236.0" prefHeight="25.0" prefWidth="71.0" />
+      <Text layoutX="347.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag 1" />
+      <Button fx:id="tagSearchButton" layoutX="516.0" layoutY="275.0" mnemonicParsing="false" onAction="#searchByTag" text="Search by&#10;Tags" textAlignment="CENTER" />
+      <TextField fx:id="value1" layoutX="429.0" layoutY="236.0" prefHeight="25.0" prefWidth="71.0" />
       <Text layoutX="479.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="427.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value 1" />
-      <TextField fx:id="tag2" layoutX="345.0" layoutY="293.0" prefHeight="25.0" prefWidth="71.0" />
-      <Text layoutX="345.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag 2" />
-      <TextField fx:id="value2" layoutX="427.0" layoutY="293.0" prefHeight="25.0" prefWidth="71.0" />
+      <Text layoutX="429.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value 1" />
+      <TextField fx:id="tag2" layoutX="347.0" layoutY="293.0" prefHeight="25.0" prefWidth="71.0" />
+      <Text layoutX="347.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tag 2" />
+      <TextField fx:id="value2" layoutX="429.0" layoutY="293.0" prefHeight="25.0" prefWidth="71.0" />
       <Text layoutX="479.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="427.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value 2" />
-      <Slider fx:id="tagSlider" blockIncrement="0.0" layoutX="360.0" layoutY="328.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="26.0" prefWidth="124.0" scaleY="1.2" showTickMarks="true" snapToTicks="true" value="1.0" />
-      <Text layoutX="357.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AND" />
-      <Text layoutX="470.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
+      <Text layoutX="429.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Value 2" />
+      <Slider fx:id="tagSlider" blockIncrement="0.0" layoutX="360.0" layoutY="328.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" prefHeight="26.0" prefWidth="124.0" scaleX="1.1" scaleY="1.2" showTickMarks="true" snapToTicks="true" value="1.0" />
+      <Text layoutX="352.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AND" />
+      <Text layoutX="476.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
+      <Text layoutX="405.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Single&#10;Tag" textAlignment="CENTER" wrappingWidth="38.26222991943371" />
    </children>
 </Pane>

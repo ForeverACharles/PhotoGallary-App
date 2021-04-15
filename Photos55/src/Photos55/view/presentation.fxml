@@ -23,7 +23,7 @@
       </ImageView>
       <Button layoutX="423.0" layoutY="22.0" mnemonicParsing="false" onAction="#back" text="Back" />
       <ImageView fx:id="imageViewer" fitHeight="252.0" fitWidth="448.0" layoutX="76.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="76.0" layoutY="348.0" mnemonicParsing="false" onAction="#goback" text="&lt;&lt;&lt;" />
-      <Button layoutX="483.0" layoutY="348.0" mnemonicParsing="false" onAction="#goforward" text="&gt;&gt;&gt;" />
+      <Button layoutX="76.0" layoutY="348.0" mnemonicParsing="false" onAction="#goback" text="  &lt;  " />
+      <Button layoutX="480.0" layoutY="348.0" mnemonicParsing="false" onAction="#goforward" text="  &gt;  " />
    </children>
 </Pane>
