@@ -39,6 +39,17 @@ import javafx.stage.Stage;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.*;
+/**
+ *  Gui controller for user album interaction
+ *  
+ *  <code>presentationController</code> contains logic to handle user 
+ *  interaction with the <code>Photos</code> application. The
+ *  gui allows a user to present a manual slideshow of photos in an <code>Album</code>
+ *   
+ *   @author Charles Li
+ *   @author Max Sun
+ *   @version 1.69 Apr 2021
+*/
 
 public class presentationController {
 	
@@ -50,7 +61,11 @@ public class presentationController {
 	
 	int current = 0;
 	ObservableList<Image> images = FXCollections.observableArrayList();
-	
+	/**
+	 *  <code>presentationController</code> start method.
+	 *  Loads contents for <code>Photo</code> presentation.
+	 *  @param stage the stage used to set gui scene and pass into other controllers
+	 */	
 	public void start(Stage stage) throws FileNotFoundException
 	{
 		mainstage = stage;
@@ -101,7 +116,9 @@ public class presentationController {
             imageViewer.setImage(images.get(0));
 		}
 	}
-	
+	/**
+	 *displays the previous image
+	 */		
 	public void goback() {
 		current--;
 		if (current < 0) {
@@ -110,7 +127,9 @@ public class presentationController {
 		}
 		imageViewer.setImage(images.get(current));
 	}
-	
+	/**
+	 *displays the next image
+	 */		
 	public void goforward() {
 		current++;
 		if (current == images.size()) {
@@ -120,7 +139,9 @@ public class presentationController {
 		imageViewer.setImage(images.get(current));
 	}
 
-	
+	/**
+	 *logs the user out and goes back to the login screen
+	 */		
 	public void logout() throws IOException, ClassNotFoundException {
 		Photos55App.writePhotosApp();
 		FXMLLoader loader = new FXMLLoader();
@@ -131,7 +152,9 @@ public class presentationController {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+	/**
+	 *goes back to the album view screen
+	 */		
 	public void back() throws IOException {
 		//Photos55App.writePhotosApp();
 		FXMLLoader loader = new FXMLLoader();
@@ -144,7 +167,9 @@ public class presentationController {
     	stage.setScene(scene);
     	stage.show();	
 	}
-	    
+	/**
+	 *quits the application serializing session data
+	 */		    
 	public void quit() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
     	System.exit(0);
