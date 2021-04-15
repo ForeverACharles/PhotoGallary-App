@@ -93,7 +93,7 @@ public class Photo implements Serializable {
 	/**
 	* 
 	* Changes the caption of the <code>Photo</code>
-	* @param path the new caption of the <code>Photo</code>
+	* @param newCaption the new caption of the <code>Photo</code>
 	* 
 	*/		
 	public void reCaption(String newCaption)

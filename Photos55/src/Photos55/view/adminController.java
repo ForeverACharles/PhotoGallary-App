@@ -1,5 +1,16 @@
 package Photos55.view;
 
+/**
+ *  Gui controller for user Admin services
+ *  
+ *  <code>adminController</code> contains logic to handle Admin services,
+ *  which include creating or deleting <code>User</code>s from the application
+ *   
+ *   @author Charles Li
+ *   @author Max Sun
+ *   @version 1.69 Apr 2021
+*/
+
 import java.io.IOException;
 import java.util.*;
 
@@ -23,13 +34,25 @@ public class adminController {
 	@FXML ListView<String> users;
 	@FXML Button logoutButton;
 	@FXML TextField newuser;
+	
+	/**
+	 * List of <code>User</code>s who are stored in the application
+	*/
 	private ObservableList<String> userList;
 	
+	/**
+	 *  <code>adminController</code> start method.
+	 *  Loads <code>User</code> list for Admin to manage.
+	 *  @param mainstage the stage used to set gui scene and pass into other controllers
+	 */
 	public void start(Stage mainstage) {
 	    userList = loadUsers();
 		users.setItems(userList);
 	}
 	
+	/**
+	 *  Loads <code>User</code> list for Admin to manage
+	 */
 	public ObservableList<String> loadUsers()
 	{
 		ObservableList<String> result = FXCollections.observableArrayList();
@@ -40,6 +63,10 @@ public class adminController {
 		return result;
 	}
 	
+	/**
+	 *  Adds a <code>User</code> to the list of Users. Reports error
+	 *  if User name not entered or User already exists
+	 */
 	public void addUser() throws IOException {
 		String user = newuser.getText();
 		
@@ -68,6 +95,10 @@ public class adminController {
 	    users.setItems(userList);
 	}
 	
+	/**
+	 *  Deletes a <code>User</code> from the list of Users. Reports error
+	 *  if User does not exist
+	 */
     public void deleteUser() throws IOException {
 		int index = users.getSelectionModel().getSelectedIndex();
 		if(userList.size() == 0 || index == -1) {
@@ -81,6 +112,10 @@ public class adminController {
 		users.setItems(userList);
     }
     
+    /**
+	 *  Logs current <code>User</code> out of current application session.
+	 *  Saves the User's session and returns to login scene
+	 */
     public void logout() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
     	FXMLLoader loader = new FXMLLoader();
@@ -92,6 +127,9 @@ public class adminController {
     	stage.show();
     }
     
+    /**
+	 *  Saves the session and closes the application
+	 */
     public void quit() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
     	System.exit(0);

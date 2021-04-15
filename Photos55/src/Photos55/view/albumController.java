@@ -1,5 +1,19 @@
 package Photos55.view;
 
+/**
+ *  Gui controller for user interaction with a single Album
+ *  
+ *  <code>albumController</code> contains logic to handle user 
+ *  interaction with their <code>Photos</code>. The
+ *  gui allows a user to view, add, and remove Photos from an Album,
+ *  as well as modify Photo captions and tags. User may also copy or
+ *  move selected Photos to another of their Albums
+ *   
+ *   @author Charles Li
+ *   @author Max Sun
+ *   @version 1.69 Apr 2021
+*/
+
 import Photos55.app.*;
 
 import java.io.IOException;
@@ -49,13 +63,29 @@ public class albumController {
 	@FXML Text dateField;
 	@FXML TextField captionField;
 	@FXML ChoiceBox<Album> dropdownMenu;
+	
+	/**
+	 *  <code>Photo</code> that is currently selected by <code>User</code>
+	 */
 	Photo clickedPhoto = null;
+	
+	/**
+	 *  <code>Image</code> belonging to currently selected Photo by <code>User</code>
+	 */
 	Image clickedImage = null;
+	
+	/**
+	 *  <code>Stage</code> representing the current scene viewed by <code>User</code>
+	 */
 	Stage mainstage;
 	
 	@FXML TableView<tagDisplay> tagTable;
 	@FXML TableColumn<tagDisplay, String> Tag;
 	@FXML TableColumn<tagDisplay, String> Value;
+	
+	/**
+	 *  Table contents of a <code>Photo</code>'s Tags in Tag type and Value format
+	 */
 	ObservableList<tagDisplay> tagTableContents;
 	
 	@FXML TextField tagToAdd;
@@ -63,6 +93,11 @@ public class albumController {
 	
 	@FXML Button presentButton;
 	
+	/**
+	 *  <code>albumController</code> start method.
+	 *  Loads contents for <code>User</code> interaction with their Photos.
+	 *  @param stage the stage used to set gui scene and pass into other controllers
+	 */
 	public void start(Stage stage) throws FileNotFoundException
 	{
 		mainstage = stage;
@@ -75,6 +110,11 @@ public class albumController {
 		makeGrid();
 	}
 	
+	/**
+	 *  Sets the currently selected Photo and Image
+	 *  @param photo the Photo for selection
+	 *  @param image the Image assocaited with the Photo for selection
+	 */
 	public void clicked(Photo photo, Image image) throws FileNotFoundException {
 		
 		clickedPhoto = photo;
@@ -100,7 +140,9 @@ public class albumController {
 			tagTable.setItems(tagTableContents);
 		}
 	}
-	
+	/**
+	 *  Reads relevant Tag information from the selected <code>Photo</code>
+	 */
 	public ObservableList<tagDisplay> getTagTable()
 	{
 		ObservableList<tagDisplay> result = FXCollections.observableArrayList();
@@ -111,6 +153,10 @@ public class albumController {
 		return result;
 	}
 	
+	/**
+	 *  Displays the <code>Photo</code> display for all Photos in the current
+	 *  <code>User</code>'s album. Reports if any Photos failed to be located
+	 */
 	public void makeGrid() throws FileNotFoundException {
 		
 		ArrayList<Photo> photoList = userController.viewAlbum.getPhotos();
@@ -198,6 +244,9 @@ public class albumController {
 		}
 	}
 	
+	/**
+	 * Sets the caption of the currently selected <code>Photo</code>
+	 */
 	public void changeCaption() throws IOException, ClassNotFoundException{
 		
 		if(clickedPhoto == null) {
@@ -211,6 +260,11 @@ public class albumController {
 		makeGrid();
 	}
 	
+	/**
+	 *  Adds <code>Photo</code> from User's File System to the application
+	 *  Prevents duplicates of a Photo within the same Album. Notifies
+	 *  User if some photos already exist
+	 */
 	public void addPhoto() throws IOException, ClassNotFoundException{
 		FileChooser chooser = new FileChooser();
 		int failedImports = 0;
@@ -266,6 +320,10 @@ public class albumController {
 	    //Photos55App.writePhotosApp();
 	}
 	
+	/**
+	 *  Removes currently selected <code>Photo</code> from the current Album
+	 *  Reports error if no Photo selected
+	 */
 	public void removePhoto() throws IOException, ClassNotFoundException {
 		
 		if(clickedPhoto == null) {
@@ -280,6 +338,11 @@ public class albumController {
 		clicked(null, null);
 	}
 	
+	/**
+	 *  Copies <code>Photo</code> from current Album to another one of User's Albums
+	 *  Reports error if Photo already exists in requested Album. Returns boolean if
+	 *  successful
+	 */
 	public boolean copyPhoto() {
 		if(clickedPhoto == null) {
 			Alert alert = new Alert(AlertType.ERROR, "No photo selected", ButtonType.OK);
@@ -303,6 +366,10 @@ public class albumController {
 		return true;
 	}
 	
+	/**
+	 *  Moves <code>Photo</code> from current Album to another one of User's Albums
+	 *  Reports error if Photo already exists in requested Album.
+	 */
 	public void movePhoto() throws ClassNotFoundException, IOException {
 		if(copyPhoto())
 		{
@@ -310,6 +377,10 @@ public class albumController {
 		}
 	}
 	
+	/**
+	 *  Adds <code>Tag</code> to currently selected <code>Photo</code>
+	 *  Reports error if Tag already exits
+	 */
 	public void addTag() throws IOException, ClassNotFoundException
 	{
 		Tag TagToAdd = new Tag(tagToAdd.getText(), valueToAdd.getText());
@@ -345,6 +416,9 @@ public class albumController {
 		tagTable.setItems(tagTableContents);
 	}
 	
+	/**
+	 *  Deletes <code>Tag</code> from currently selected <code>Photo</code>
+	 */
 	public void deleteTag() throws IOException, ClassNotFoundException
 	{
 		int index = tagTable.getSelectionModel().getSelectedIndex();
@@ -360,6 +434,9 @@ public class albumController {
 		tagTable.setItems(tagTableContents);
 	}
 	
+	/**
+	 *  Sends <code>User</code> presentation view of the current Album
+	 */
 	public void present() throws IOException, ClassNotFoundException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/Photos55/view/presentation.fxml"));
@@ -372,6 +449,10 @@ public class albumController {
 		stage.show();
 	}
 	
+	/**
+	 *  Logs current <code>User</code> out of current application session.
+	 *  Saves the User's session and returns to login scene
+	 */
 	public void logout() throws IOException, ClassNotFoundException {
 		Photos55App.writePhotosApp();
 		FXMLLoader loader = new FXMLLoader();
@@ -383,6 +464,9 @@ public class albumController {
 		stage.show();
 	}
 	
+	/**
+	 *  Returns <code>User</code> to scene displaying all their Albums
+	 */
 	public void back() throws IOException {
 		//Photos55App.writePhotosApp();
 		FXMLLoader loader = new FXMLLoader();
@@ -396,6 +480,9 @@ public class albumController {
     	stage.show();	
 	}
 	    
+	/**
+	 *  Saves the session and closes the application
+	 */
 	public void quit() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
     	System.exit(0);

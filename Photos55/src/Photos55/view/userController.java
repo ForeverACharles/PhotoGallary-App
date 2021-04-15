@@ -4,7 +4,7 @@ package Photos55.view;
  *  Gui controller for user album interaction
  *  
  *  <code>userController</code> contains logic to handle user 
- *  interaction with the <code>Photos</code> application. The
+ *  interaction with their <code>Albums</code>. The
  *  gui allows a user to view, create, and remove photo albums,
  *  as well as search all photos by date or tag.
  *   
@@ -125,8 +125,8 @@ public class userController {
 	}
 	
 	/**
-	 *  Opens the currently selected <code>Album</code> and gets the next scene. Reports error
-	 *  when none are available or none selected
+	 *  Opens the currently selected <code>Album</code> and gets the next scene. 
+	 *  Reports error when none are available or none selected
 	 */
 	public void openAlbum() throws IOException
 	{
@@ -352,9 +352,8 @@ public class userController {
 	}
 	
 	/**
-	 *  Filters all <code>Photo</code>s belonging to the current User by Tag 
-	 *  Sends User to filtered results scene to view filtered Photos. Reports
-	 *  error if Tag formatting is incorrect
+	 *  Receives Tag filters from <code>User</code> and checks for <code>Tag</code> errors.
+	 *  Sends User to filtered results scene to view filtered Photos
 	 */
 	public void searchByTag() throws IOException
 	{
@@ -440,7 +439,8 @@ public class userController {
 	}
 	
 	/**
-	 *  Filters all <code>Photo</code>s belonging to the current User by Tag 
+	 *  Filters all <code>Photo</code>s belonging to the current User by <code>Tag</code> 
+	 *  requests: Single, Conjunctive, and Disjunctive search 
 	 */
 	public void tagFilter(Tag pair1, Tag pair2, int slider)		//helper function for searchByTag()
 	{
@@ -500,6 +500,10 @@ public class userController {
 		}
 	}
 	
+	/**
+	 *  Logs current <code>User</code> out of current application session.
+	 *  Saves the User's session and returns to login scene
+	 */
 	public void logout() throws IOException, ClassNotFoundException {
 		Photos55App.writePhotosApp();
     	FXMLLoader loader = new FXMLLoader();
@@ -511,6 +515,9 @@ public class userController {
     	stage.show();
     }
 	
+	/**
+	 *  Saves the session and closes the application
+	 */
 	public void quit() throws IOException, ClassNotFoundException {
     	Photos55App.writePhotosApp();
     	System.exit(0);
