@@ -239,7 +239,9 @@ public class userController {
 						LocalDate photoDate = photo.getDate();
 						if(photoDate != null && (photoDate.isBefore(end) || photoDate.isEqual(end)))
 						{
-							filteredPhotos.add(photo);
+							if(!(filteredPhotos.contains(photo))){
+								filteredPhotos.add(photo);
+							}
 						}
 					}
 				}
@@ -262,7 +264,9 @@ public class userController {
 						LocalDate photoDate = photo.getDate();
 						if(photoDate != null && (photoDate.compareTo(start) >= 0 && photoDate.compareTo(end) <= 0))
 						{
-							filteredPhotos.add(photo);
+							if(!(filteredPhotos.contains(photo))){
+								filteredPhotos.add(photo);
+							}
 						}
 					}
 				}
