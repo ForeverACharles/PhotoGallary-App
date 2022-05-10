@@ -4,13 +4,17 @@ Created by Charles Li and Max Sun. Original repo hosted on [BitBucket](https://b
 
 Photo gallery desktop application built in Eclipse IDE and written in Java for backend and JavaFX for GUI.
 
+| Stock Photos | Presentation
+---------------|--------------
+![image](https://user-images.githubusercontent.com/50348516/167721807-88e7b18a-2143-42da-aada-35900345fc8a.png) | ![image](https://user-images.githubusercontent.com/50348516/167721887-d9a1c7ea-022f-438a-8793-434b24fad62f.png)
+
 
 ### Features
 
 - Supports multiple users with login authentification
 - Creating and managing Photo Albums
 - Importing and Tagging photos
-- Viewing Photos
+- Filtering and Viewing Photos
 
 ### Application Configuration
 
