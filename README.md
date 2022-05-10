@@ -11,8 +11,8 @@ Photo gallery desktop application built in Eclipse IDE and written in Java for b
 ### Features
 
 - Supports multiple users with login authentification
-- Creating and managing Photo Albums
-- Importing and Tagging photos
+- Creating and managing Photos and Photo Albums
+- Importing, Captioning, and Tagging Photos
 - Filtering and Viewing Photos
 
 ### Application Configuration
