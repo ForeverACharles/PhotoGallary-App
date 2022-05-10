@@ -24,3 +24,20 @@ Users can be created by logging in as `admin`. The *admin* portal enables manage
 ### Technical details
 
 User information and their associated photo albums are stored and accessed locally via data serialization. 
+
+## How to Run
+
+### Eclipse IDE
+1. Install JavaFX and add it to your PATH
+2. Link JavaFX package path to the IDE
+3. Import the project and expand the project dropdown.
+4. Select under */src* **Photos55.App** and run as Java application
+5. Play around with the App :)
+
+### Command Line
+1. Install JavaFX and add it to your PATH, note it as *PATH2JavaFX*
+3. Open */src* directory and compile with 
+  `javac --module-path PATH2JavaFX/lib --add-modules javafx.controls Photos55/App/*.java`
+  `javac --module-path PATH2JavaFX/lib --add-modules javafx.controls Photos55/View/*.java`
+5. Run with 
+  `java --module-path PATH2JavaFX/lib -- add-modules javafx.controls Photos55.app.Photos55.App
