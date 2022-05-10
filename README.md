@@ -47,4 +47,4 @@ User information and their associated photo albums are stored and accessed local
   `java --module-path PATH2JavaFX/lib --add-modules javafx.controls Photos55.app.Photos55.App`
   
   
-Note: More modules might need to be included besides just *javafx.controls*. But, probably only a few more common ones in the JavaFX package
+Note: More modules might need to be included besides just *javafx.controls*. But, probably only a few of the common ones in the JavaFX package
