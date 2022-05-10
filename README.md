@@ -5,7 +5,7 @@ Created by Charles Li and Max Sun. Original repo hosted on [BitBucket](https://b
 Photo gallery desktop application built in Eclipse IDE and written in Java for backend and JavaFX for GUI.
 
 
-<img src="https://user-images.githubusercontent.com/50348516/167721807-88e7b18a-2143-42da-aada-35900345fc8a.png" width=500> <img src="https://user-images.githubusercontent.com/50348516/167721887-d9a1c7ea-022f-438a-8793-434b24fad62f.png" width=500>
+<img src="https://user-images.githubusercontent.com/50348516/167721807-88e7b18a-2143-42da-aada-35900345fc8a.png" width=400> <img src="https://user-images.githubusercontent.com/50348516/167721887-d9a1c7ea-022f-438a-8793-434b24fad62f.png" width=400>
 
 
 ### Features
