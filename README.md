@@ -14,6 +14,7 @@ Photo gallery desktop application built in Eclipse IDE and written in Java for b
 - Creating and managing Photos and Photo Albums
 - Importing, Captioning, and Tagging Photos
 - Filtering and Viewing Photos
+- Comic Sans font
 
 ### Application Configuration
 
